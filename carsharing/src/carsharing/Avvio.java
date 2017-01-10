@@ -33,6 +33,7 @@ public class Avvio {
 	static Avvio window;
 	ArrayList <Socio> t;
 	ArrayList <Noleggio> n;
+	ArrayList <Auto> a;
 	String inizio;
 	String fine;
 	Aggiungi aggiungi;
@@ -172,55 +173,33 @@ public class Avvio {
 		btnAggiungiNoleggio.setBounds(126, 126, 111, 25);
 		btnAggiungiNoleggio.setText("Aggiungi noleggio");
 		
-		Button btnEliminaNoleggio = new Button(shell, SWT.NONE);
-		btnEliminaNoleggio.addSelectionListener(new SelectionAdapter() {
-				@Override
-			public void widgetSelected(SelectionEvent e0) {
-				
-				Connection cn;
-				Statement st;
-				ResultSet rs;
-				String sql;
-			
-				String auto1;
-				String socio1;
-				
-				
-				
-				
-				
-	
-
-
-				//	codice_noleggio1 = codice_noleggio.getText();
-					auto1 = auto.getText();
-					socio1 = socio.getText();
-					
-					
-				
-				
-				try {
-					database.Elimina(auto1,socio1);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-					
-					
-					
-				
-			}
-			
-		});
-		btnEliminaNoleggio.setBounds(245, 237, 100, 25);
-		btnEliminaNoleggio.setText("Elimina noleggio");
-		
 		List list_3 = new List(shell, SWT.BORDER);
 		list_3.setBounds(306, 117, 111, 116);
 		
 		Label lblAuto = new Label(shell, SWT.NONE);
 		lblAuto.setBounds(305, 96, 55, 15);
 		lblAuto.setText("auto");
+		
+		Button btnCaricaNoleggi = new Button(shell, SWT.NONE);
+		btnCaricaNoleggi.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e0) {
+					a = new ArrayList<Auto>();
+				
+				try {
+					a = database.CaricaAuto2();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				for(int i=0;i<a.size();i++){
+				list_3.add(a.get(i).getTarga());
+				}
+			}
+			
+		});
+		btnCaricaNoleggi.setBounds(302, 237, 122, 25);
+		btnCaricaNoleggi.setText("Carica Noleggi");
 		
 
 		database = new Database(window);

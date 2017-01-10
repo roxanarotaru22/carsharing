@@ -236,7 +236,7 @@ public class Database {
 		}
 
 	}
-	public ArrayList<Socio> CaricaAuto() throws SQLException {
+	public ArrayList<Auto> CaricaAuto2() throws SQLException {
 		Connection cn;
 		Statement st;
 		ResultSet rs;
@@ -258,8 +258,8 @@ public class Database {
 			st = cn.createStatement();
 			rs = st.executeQuery(sql);
 			while (rs.next() == true) {
-				tabella.add(new Socio(rs.getString("targa"), rs.getString("marca"), rs.getString("modello"),
-						rs.getString("costo_giornaliero")));
+				tabella.add(new Auto(rs.getString("targa"), rs.getString("marca"), rs.getString("modello"),
+						rs.getDouble("costo_giornaliero")));
 
 			}
 			cn.close();
