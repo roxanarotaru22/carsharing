@@ -30,7 +30,7 @@ public class ConnessioneMysql {
 
 
 		
-			cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/carsharing?user=root&password=");
+			cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/auto?user=root&password=");
 			//jdbc:mysql://localhost:3306/Contatti?user=root&password=secret
 		
 

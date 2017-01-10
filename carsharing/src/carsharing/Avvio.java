@@ -73,10 +73,10 @@ public class Avvio {
 		shell.setText("SWT Application");
 		
 		DateTime dateTime_inizio = new DateTime(shell, SWT.BORDER);
-		dateTime_inizio.setBounds(173, 178, 80, 24);
+		dateTime_inizio.setBounds(67, 209, 80, 24);
 		
 		DateTime dateTime_fine = new DateTime(shell, SWT.BORDER);
-		dateTime_fine.setBounds(287, 178, 80, 24);
+		dateTime_fine.setBounds(67, 238, 80, 24);
 		
 		Button btnInvia = new Button(shell, SWT.NONE);
 		btnInvia.addSelectionListener(new SelectionAdapter() {
@@ -90,7 +90,7 @@ public class Avvio {
 		});
 		
 		List list_2 = new List(shell, SWT.BORDER);
-		list_2.setBounds(173, 64, 251, 68);
+		list_2.setBounds(126, 31, 251, 53);
 		List list_1 = new List(shell, SWT.BORDER);
 		list_1.addMouseListener(new MouseAdapter() {
 			@Override
@@ -109,7 +109,7 @@ public class Avvio {
 				}	
 			}
 		});
-		list_1.setBounds(10, 64, 100, 138);
+		list_1.setBounds(10, 31, 100, 138);
 	
 		
 		
@@ -138,27 +138,27 @@ public class Avvio {
 			}
 			
 		});
-		btnNewButton.setBounds(35, 227, 75, 25);
+		btnNewButton.setBounds(10, 178, 75, 25);
 		btnNewButton.setText("carica soci");
 		
 		
 		
 		Label lblAutoNoleggiate = new Label(shell, SWT.NONE);
-		lblAutoNoleggiate.setBounds(173, 25, 118, 15);
+		lblAutoNoleggiate.setBounds(130, 10, 118, 15);
 		lblAutoNoleggiate.setText("auto noleggiate");
 		
 		
 		
 		Label lblInizio = new Label(shell, SWT.NONE);
-		lblInizio.setBounds(173, 153, 55, 15);
+		lblInizio.setBounds(10, 218, 55, 15);
 		lblInizio.setText("Inizio");
 		
 		Label lblFine = new Label(shell, SWT.NONE);
-		lblFine.setBounds(280, 157, 55, 15);
+		lblFine.setBounds(10, 247, 55, 15);
 		lblFine.setText("Fine");
 		
 		
-		btnInvia.setBounds(369, 178, 55, 25);
+		btnInvia.setBounds(155, 238, 55, 25);
 		btnInvia.setText("Invia");
 		
 		Button btnAggiungiNoleggio = new Button(shell, SWT.NONE);
@@ -169,11 +169,62 @@ public class Avvio {
 				aggiungi.open();
 			}
 		});
-		btnAggiungiNoleggio.setBounds(313, 227, 111, 25);
+		btnAggiungiNoleggio.setBounds(126, 126, 111, 25);
 		btnAggiungiNoleggio.setText("Aggiungi noleggio");
+		
+		Button btnEliminaNoleggio = new Button(shell, SWT.NONE);
+		btnEliminaNoleggio.addSelectionListener(new SelectionAdapter() {
+				@Override
+			public void widgetSelected(SelectionEvent e0) {
+				
+				Connection cn;
+				Statement st;
+				ResultSet rs;
+				String sql;
+			
+				String auto1;
+				String socio1;
+				
+				
+				
+				
+				
+	
+
+
+				//	codice_noleggio1 = codice_noleggio.getText();
+					auto1 = auto.getText();
+					socio1 = socio.getText();
+					
+					
+				
+				
+				try {
+					database.Elimina(auto1,socio1);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+					
+					
+					
+				
+			}
+			
+		});
+		btnEliminaNoleggio.setBounds(245, 237, 100, 25);
+		btnEliminaNoleggio.setText("Elimina noleggio");
+		
+		List list_3 = new List(shell, SWT.BORDER);
+		list_3.setBounds(306, 117, 111, 116);
+		
+		Label lblAuto = new Label(shell, SWT.NONE);
+		lblAuto.setBounds(305, 96, 55, 15);
+		lblAuto.setText("auto");
 		
 
 		database = new Database(window);
 
 	}
 }
+
