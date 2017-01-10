@@ -201,7 +201,7 @@ public class Database {
 	}
 	
 	
-	public void Elimina(String auto, String socio) throws SQLException {
+	public void Elimina(String auto) throws SQLException {
 		Connection cn;
 		Statement st;
 		ResultSet rs;
@@ -221,7 +221,7 @@ public class Database {
 
 			// jdbc:mysql://localhost:3306/Contatti?user=root&password=secret
 
-			sql = "DELETE * FROM noleggi WHERE auto = " + auto;
+			sql = "DELETE FROM noleggi WHERE auto = '" + auto + "';";
 			System.out.println(sql);
 			// ________________________________query
 
@@ -251,7 +251,7 @@ public class Database {
 
 		cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/auto?user=root&password=");
 
-		sql = "SELECT targa FROM auto";
+		sql = "SELECT * FROM auto";
 		System.out.println(sql);
 		// ________________________________query
 		try {

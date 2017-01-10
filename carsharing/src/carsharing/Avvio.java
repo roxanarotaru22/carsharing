@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -174,6 +175,20 @@ public class Avvio {
 		btnAggiungiNoleggio.setText("Aggiungi noleggio");
 		
 		List list_3 = new List(shell, SWT.BORDER);
+		list_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				try {
+					 database.Elimina(a.get(list_3.getSelectionIndex()).getTarga());
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				MessageDialog.openInformation(shell, "Avviso" , "Ai seguenti soci con la seguente auto "+a.get(list_3.getSelectionIndex()).getTarga()+" è stato tolto il noleggio");
+				
+				
+			}
+		});
 		list_3.setBounds(306, 117, 111, 116);
 		
 		Label lblAuto = new Label(shell, SWT.NONE);
