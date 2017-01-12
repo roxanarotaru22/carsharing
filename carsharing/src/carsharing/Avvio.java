@@ -38,6 +38,7 @@ public class Avvio {
 	String inizio;
 	String fine;
 	Aggiungi aggiungi;
+	Elimina elimina;
 	/**
 	 * Launch the application.
 	 * @param args
@@ -174,47 +175,16 @@ public class Avvio {
 		btnAggiungiNoleggio.setBounds(126, 126, 111, 25);
 		btnAggiungiNoleggio.setText("Aggiungi noleggio");
 		
-		List list_3 = new List(shell, SWT.BORDER);
-		list_3.addMouseListener(new MouseAdapter() {
+		Button btnEliminaNoleggio = new Button(shell, SWT.NONE);
+		btnEliminaNoleggio.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void mouseDoubleClick(MouseEvent e) {
-				try {
-					 database.Elimina(a.get(list_3.getSelectionIndex()).getTarga());
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				MessageDialog.openInformation(shell, "Avviso" , "Ai seguenti soci con la seguente auto "+a.get(list_3.getSelectionIndex()).getTarga()+" è stato tolto il noleggio");
-				
-				
+			public void widgetSelected(SelectionEvent e) {
+				elimina = new Elimina(window,database);
+				elimina.open();
 			}
 		});
-		list_3.setBounds(306, 117, 111, 116);
-		
-		Label lblAuto = new Label(shell, SWT.NONE);
-		lblAuto.setBounds(305, 96, 55, 15);
-		lblAuto.setText("auto");
-		
-		Button btnCaricaNoleggi = new Button(shell, SWT.NONE);
-		btnCaricaNoleggi.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e0) {
-					a = new ArrayList<Auto>();
-				
-				try {
-					a = database.CaricaAuto2();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				for(int i=0;i<a.size();i++){
-				list_3.add(a.get(i).getTarga());
-				}
-			}
-			
-		});
-		btnCaricaNoleggi.setBounds(302, 237, 122, 25);
-		btnCaricaNoleggi.setText("Carica Noleggi");
+		btnEliminaNoleggio.setBounds(290, 237, 118, 25);
+		btnEliminaNoleggio.setText("Elimina noleggio");
 		
 
 		database = new Database(window);

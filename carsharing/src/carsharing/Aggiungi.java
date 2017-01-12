@@ -47,7 +47,7 @@ public class Aggiungi {
 		this.avvio = avvio;
 		this.database = database;
 	}
-
+	
 	/**
 	 * Open the window.
 	 */
