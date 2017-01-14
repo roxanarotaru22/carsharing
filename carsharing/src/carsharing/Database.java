@@ -220,13 +220,12 @@ public class Database {
 			cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/auto?user=root&password=");
 
 			// jdbc:mysql://localhost:3306/Contatti?user=root&password=secret
-			sql = "DELETE FROM auto INNER JOIN noleggi ON auto.targa=noleggi.auto WHERE noleggio.auto='" + auto + "";
 			
-			
-			//sql = "DELETE FROM auto INNER JOIN noleggi ON auto.targa='" + auto + "'";
 
-		//	sql = "DELETE FROM noleggi WHERE auto = '" + auto + "';";
-			//sql = "DELETE FROM auto WHERE targa = '" + auto + "';";
+		sql = "DELETE FROM noleggi WHERE auto = '" + auto + "';";
+		st = cn.createStatement();
+		st.executeUpdate(sql);
+			sql = "DELETE FROM auto WHERE targa = '" + auto + "';";
 			System.out.println(sql);
 			// ________________________________query
 

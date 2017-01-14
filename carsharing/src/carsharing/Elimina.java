@@ -77,8 +77,18 @@ public class Elimina {
 					e1.printStackTrace();
 				}
 				MessageDialog.openInformation(shell, "Avviso" , "Ai seguenti soci con la seguente auto "+a.get(list.getSelectionIndex()).getTarga()+" è stato tolto il noleggio");
+				list.removeAll();
+				a = new ArrayList<Auto>();
 				
-				
+				try {
+					a = database.CaricaAuto2();
+				} catch (SQLException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				for(int i=0;i<a.size();i++){
+				list.add(a.get(i).getTarga());
+				}
 			}
 			
 		});

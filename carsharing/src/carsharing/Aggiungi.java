@@ -18,6 +18,9 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.events.MouseWheelListener;
+import org.eclipse.swt.events.MouseEvent;
 
 public class Aggiungi {
 
@@ -25,11 +28,11 @@ public class Aggiungi {
 	private Avvio avvio;
 	private Text auto;
 	private Text socio;
-	private Text restituita;
 	Database database;
 	ArrayList<Auto> auto1 ;
 	String inizio1;
 	String fine1;
+	
 
 	/**
 	 * Launch the application.
@@ -102,12 +105,33 @@ public class Aggiungi {
 		lblFine.setBounds(10, 143, 55, 15);
 		lblFine.setText("fine");
 		
-		Label lblRestituita = new Label(shell, SWT.NONE);
-		lblRestituita.setBounds(10, 203, 55, 15);
-		lblRestituita.setText("restituita");
+		Combo combo = new Combo(shell, SWT.NONE);
+		combo.setBounds(10, 210, 91, 23);
+		//auto1 = new ArrayList<Auto>();
+		/*try {
+			inizio1 = inizio.getYear() + "-" +(inizio.getMonth()+1) + "-" + inizio.getDay();
+			fine1 = fine.getYear() + "-" +(fine.getMonth()+1) + "-" + fine.getDay();
+			auto1 = database.CaricaAuto(inizio1,fine1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for(int i=0;i<auto1.size();i++){
+			
+		list.add(auto1.get(i).targa);
+		} */
 		
-		restituita = new Text(shell, SWT.BORDER);
-		restituita.setBounds(6, 231, 76, 21);
+		try {
+			auto1 = database.CaricaAuto2();
+			inizio1 = inizio.getYear() + "-" +(inizio.getMonth()+1) + "-" + inizio.getDay();
+			fine1 = fine.getYear() + "-" +(fine.getMonth()+1) + "-" + fine.getDay();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for(int i=0;i<auto1.size();i++){
+		combo.add(auto1.get(i).targa);
+		}
 		
 		Button btnAggiungi = new Button(shell, SWT.NONE);
 		btnAggiungi.addSelectionListener(new SelectionAdapter() {
@@ -129,7 +153,8 @@ public class Aggiungi {
 
 
 				//	codice_noleggio1 = codice_noleggio.getText();
-					auto1 = auto.getText();
+					auto1 = combo.getText();
+				
 					socio1 = socio.getText();
 					inizio1 = inizio.getYear() + "-" +(inizio.getMonth()+1) + "-" + inizio.getDay();
 					fine1 = fine.getYear() + "-" +(fine.getMonth()+1) + "-" + fine.getDay();
@@ -177,6 +202,8 @@ public class Aggiungi {
 		});
 		btnCaricaAuto.setBounds(171, 192, 75, 25);
 		btnCaricaAuto.setText("Carica auto");
+		
+	
 		
 		
 	}
