@@ -21,15 +21,15 @@ import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.events.MouseWheelListener;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.wb.swt.SWTResourceManager;
 
 public class Aggiungi {
 
-	protected Shell shell;
+	protected Shell shlAggiungiNoleggio;
 	private Avvio avvio;
-	private Text auto;
-	private Text socio;
 	Database database;
 	ArrayList<Auto> auto1 ;
+	ArrayList<Socio> socio1 ;
 	String inizio1;
 	String fine1;
 	
@@ -57,9 +57,9 @@ public class Aggiungi {
 	public void open() {
 		Display display = Display.getDefault();
 		createContents();
-		shell.open();
-		shell.layout();
-		while (!shell.isDisposed()) {
+		shlAggiungiNoleggio.open();
+		shlAggiungiNoleggio.layout();
+		while (!shlAggiungiNoleggio.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
@@ -70,43 +70,45 @@ public class Aggiungi {
 	 * Create contents of the window.
 	 */
 	protected void createContents() {
-		shell = new Shell();
-		shell.setSize(536, 300);
-		shell.setText("SWT Application");
+		shlAggiungiNoleggio = new Shell();
+		shlAggiungiNoleggio.setImage(SWTResourceManager.getImage(Aggiungi.class, "/carsharing/noleggio-ore.jpg"));
+		shlAggiungiNoleggio.setSize(536, 300);
+		shlAggiungiNoleggio.setText("Aggiungi noleggio");
 		
-		auto = new Text(shell, SWT.BORDER);
-		auto.setBounds(10, 22, 76, 21);
+		List list = new List(shlAggiungiNoleggio, SWT.BORDER);
+		list.setBounds(174, 56, 101, 122);
 		
-		socio = new Text(shell, SWT.BORDER);
-		socio.setBounds(10, 68, 76, 21);
-		
-		List list = new List(shell, SWT.BORDER);
-		list.setBounds(171, 21, 339, 165);
-		
-		Label lblNewLabel = new Label(shell, SWT.NONE);
-		lblNewLabel.setBounds(10, 1, 55, 15);
+		Label lblNewLabel = new Label(shlAggiungiNoleggio, SWT.NONE);
+		lblNewLabel.setFont(SWTResourceManager.getFont("Tekton Pro Ext", 11, SWT.NORMAL));
+		lblNewLabel.setBounds(10, 10, 55, 15);
 		lblNewLabel.setText("Auto");
 		
-		Label lblSocio = new Label(shell, SWT.NONE);
-		lblSocio.setBounds(10, 47, 55, 15);
+		Label lblSocio = new Label(shlAggiungiNoleggio, SWT.NONE);
+		lblSocio.setFont(SWTResourceManager.getFont("Tekton Pro Ext", 11, SWT.NORMAL));
+		lblSocio.setBounds(10, 59, 55, 15);
 		lblSocio.setText("Socio");
 		
-		DateTime inizio = new DateTime(shell, SWT.BORDER);
-		inizio.setBounds(10, 113, 80, 24);
+		DateTime inizio = new DateTime(shlAggiungiNoleggio, SWT.BORDER);
+		inizio.setBounds(10, 141, 80, 24);
 		
-		DateTime fine = new DateTime(shell, SWT.BORDER);
-		fine.setBounds(6, 162, 80, 24);
+		DateTime fine = new DateTime(shlAggiungiNoleggio, SWT.BORDER);
+		fine.setBounds(10, 207, 80, 24);
 		
-		Label lblInizio = new Label(shell, SWT.NONE);
-		lblInizio.setBounds(10, 95, 55, 15);
-		lblInizio.setText("inizio");
+		Label lblInizio = new Label(shlAggiungiNoleggio, SWT.NONE);
+		lblInizio.setFont(SWTResourceManager.getFont("Tekton Pro Ext", 11, SWT.NORMAL));
+		lblInizio.setBounds(10, 120, 55, 15);
+		lblInizio.setText("Inizio");
 		
-		Label lblFine = new Label(shell, SWT.NONE);
-		lblFine.setBounds(10, 143, 55, 15);
-		lblFine.setText("fine");
+		Label lblFine = new Label(shlAggiungiNoleggio, SWT.NONE);
+		lblFine.setFont(SWTResourceManager.getFont("Tekton Pro Ext", 11, SWT.NORMAL));
+		lblFine.setBounds(10, 186, 55, 15);
+		lblFine.setText("Fine");
 		
-		Combo combo = new Combo(shell, SWT.NONE);
-		combo.setBounds(10, 210, 91, 23);
+		Combo combo = new Combo(shlAggiungiNoleggio, SWT.NONE);
+		combo.setBounds(10, 30, 76, 23);
+		
+		Combo combo_1 = new Combo(shlAggiungiNoleggio, SWT.NONE);
+		combo_1.setBounds(10, 80, 80, 23);
 		//auto1 = new ArrayList<Auto>();
 		/*try {
 			inizio1 = inizio.getYear() + "-" +(inizio.getMonth()+1) + "-" + inizio.getDay();
@@ -122,9 +124,19 @@ public class Aggiungi {
 		} */
 		
 		try {
+			socio1 = database.CaricaSoci();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for(int i=0;i<socio1.size();i++){
+		combo_1.add(socio1.get(i).cf);
+		}
+		
+		try {
 			auto1 = database.CaricaAuto2();
-			inizio1 = inizio.getYear() + "-" +(inizio.getMonth()+1) + "-" + inizio.getDay();
-			fine1 = fine.getYear() + "-" +(fine.getMonth()+1) + "-" + fine.getDay();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -133,7 +145,8 @@ public class Aggiungi {
 		combo.add(auto1.get(i).targa);
 		}
 		
-		Button btnAggiungi = new Button(shell, SWT.NONE);
+		Button btnAggiungi = new Button(shlAggiungiNoleggio, SWT.NONE);
+		btnAggiungi.setFont(SWTResourceManager.getFont("Tekton Pro Ext", 11, SWT.NORMAL));
 		btnAggiungi.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e0) {
@@ -155,7 +168,7 @@ public class Aggiungi {
 				//	codice_noleggio1 = codice_noleggio.getText();
 					auto1 = combo.getText();
 				
-					socio1 = socio.getText();
+					socio1 = combo_1.getText();
 					inizio1 = inizio.getYear() + "-" +(inizio.getMonth()+1) + "-" + inizio.getDay();
 					fine1 = fine.getYear() + "-" +(fine.getMonth()+1) + "-" + fine.getDay();
 					
@@ -173,16 +186,18 @@ public class Aggiungi {
 				
 			}
 		});
-		btnAggiungi.setBounds(171, 231, 75, 25);
-		btnAggiungi.setText("aggiungi");
+		btnAggiungi.setBounds(329, 91, 151, 44);
+		btnAggiungi.setText(" Aggiungi noleggio");
 		
 		
 		
-		Label lblAuto = new Label(shell, SWT.NONE);
-		lblAuto.setBounds(165, 1, 55, 15);
-		lblAuto.setText("Auto");
+		Label lblAuto = new Label(shlAggiungiNoleggio, SWT.NONE);
+		lblAuto.setFont(SWTResourceManager.getFont("Tekton Pro Ext", 11, SWT.NORMAL));
+		lblAuto.setBounds(174, 35, 151, 15);
+		lblAuto.setText("Auto disponibili:");
 		
-		Button btnCaricaAuto = new Button(shell, SWT.NONE);
+		Button btnCaricaAuto = new Button(shlAggiungiNoleggio, SWT.NONE);
+		btnCaricaAuto.setFont(SWTResourceManager.getFont("Tekton Pro Ext", 11, SWT.NORMAL));
 		btnCaricaAuto.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e0) {
@@ -195,13 +210,17 @@ public class Aggiungi {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				combo.removeAll();
 				for(int i=0;i<auto1.size();i++){
 				list.add(auto1.get(i).targa);
+				combo.add(auto1.get(i).targa);
 				}
 			}
 		});
-		btnCaricaAuto.setBounds(171, 192, 75, 25);
+		btnCaricaAuto.setBounds(174, 183, 101, 25);
 		btnCaricaAuto.setText("Carica auto");
+		
+		
 		
 	
 		
